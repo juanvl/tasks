@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { Alert, AsyncStorage } from 'react-native';
 import api from '~services/api';
 import AuthInput from '~components/AuthInput';
 
@@ -29,9 +29,9 @@ export default class Auth extends Component {
         email: this.state.email,
         password: this.state.password,
       });
-
       api.defaults.headers.common.Authorization = `bearer ${res.data.token}`;
-      this.props.navigation.navigate('Home');
+      AsyncStorage.setItem('userData', JSON.stringify(res.data));
+      this.props.navigation.navigate('Home', res.data);
     } catch (err) {
       Alert.alert('Ops...', err);
     }

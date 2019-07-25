@@ -37,7 +37,14 @@ export default class Main extends Component {
 
   componentDidMount = async () => {
     this.loadTasks();
+    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+      this.loadTasks();
+    });
   };
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
 
   addTask = async ({ desc, date }) => {
     try {
@@ -79,7 +86,7 @@ export default class Main extends Component {
     if (this.state.showDoneTasks) {
       visibleTasks = [...this.state.tasks];
     } else {
-      visibleTasks = this.state.tasks.filter(task => !task.doneAt);
+      visibleTasks = this.state.tasks.filter(task => task.doneAt === null);
     }
     this.setState({ visibleTasks });
   };
