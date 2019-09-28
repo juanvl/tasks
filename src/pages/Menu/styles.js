@@ -42,7 +42,7 @@ export const UserInfo = styled.View`
 `;
 
 export const UserInfoItems = styled.View`
-  width: 60px;
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;
